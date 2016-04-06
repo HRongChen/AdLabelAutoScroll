@@ -40,7 +40,7 @@
 }
 
 
-- (instancetype)initWithTitles:(NSArray *)titles andIsAutoScroll:(BOOL)isAutoScroll{
+- (instancetype)initWithTitles:(NSArray *)titles{
     
     self = [super init];
     
@@ -55,7 +55,6 @@
         self.textAlignment = NSTextAlignmentLeft;
         self.isHaveHeadImg = NO;
         self.isHaveTouchEvent = NO;
-        self.isAutoScroll = isAutoScroll;
         
         index = 0;
         

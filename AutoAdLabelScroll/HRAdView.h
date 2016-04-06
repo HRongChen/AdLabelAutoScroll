@@ -76,5 +76,5 @@
  *  实例化方法
  */
 
-- (instancetype)initWithTitles:(NSArray *)titles andIsAutoScroll:(BOOL)isAutoScroll;
+- (instancetype)initWithTitles:(NSArray *)titles;
 @end

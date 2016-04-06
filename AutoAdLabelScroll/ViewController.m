@@ -21,7 +21,7 @@
     [super viewDidLoad];
     NSArray *array = @[@"111111",@"22222222",@"33333333",@"4444444444"];
     
-    HRAdView * view = [[HRAdView alloc]initWithTitles:array andIsAutoScroll:NO];
+    HRAdView * view = [[HRAdView alloc]initWithTitles:array];
     view.frame = CGRectMake(0, 64, self.view.frame.size.width, 44);
     view.textAlignment = NSTextAlignmentLeft;//默认
     view.isHaveHeadImg = YES;
