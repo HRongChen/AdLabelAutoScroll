@@ -79,5 +79,5 @@
 
 
 基本能满足需求。 因为没找到图片，就扔了个纯黑图片当轮播框前面的图标。
-![image](https://github.com/HRongChen/AdLabelAutoScroll/AdLabelAutoScroll/raw/master/Page.gif)
+![image](https://github.com/HRongChen/AdLabelAutoScroll/blob/master/AutoAdLabelScroll/Page.gif)
 
