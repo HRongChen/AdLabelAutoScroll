@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8603199A1CB506BE000C235F /* Page.gif in Resources */ = {isa = PBXBuildFile; fileRef = 860319991CB506BE000C235F /* Page.gif */; };
 		86C739C91CB4A0FF00E27C05 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C739C81CB4A0FF00E27C05 /* main.m */; };
 		86C739CC1CB4A0FF00E27C05 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C739CB1CB4A0FF00E27C05 /* AppDelegate.m */; };
 		86C739CF1CB4A0FF00E27C05 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C739CE1CB4A0FF00E27C05 /* ViewController.m */; };
@@ -38,6 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		860319991CB506BE000C235F /* Page.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Page.gif; sourceTree = "<group>"; };
 		86C739C41CB4A0FF00E27C05 /* AutoAdLabelScroll.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AutoAdLabelScroll.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		86C739C81CB4A0FF00E27C05 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		86C739CA1CB4A0FF00E27C05 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -56,7 +58,7 @@
 		86C739EE1CB4A0FF00E27C05 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		86C739FA1CB4A13800E27C05 /* HRAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HRAdView.h; sourceTree = "<group>"; };
 		86C739FB1CB4A13800E27C05 /* HRAdView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HRAdView.m; sourceTree = "<group>"; };
-		86C739FD1CB4CFD800E27C05 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		86C739FD1CB4CFD800E27C05 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../Default-568h@2x.png"; sourceTree = "<group>"; };
 		86C739FF1CB4E84100E27C05 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		86C73A001CB4E84200E27C05 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -89,7 +91,6 @@
 		86C739BB1CB4A0FF00E27C05 = {
 			isa = PBXGroup;
 			children = (
-				86C739FD1CB4CFD800E27C05 /* Default-568h@2x.png */,
 				86C739C61CB4A0FF00E27C05 /* AutoAdLabelScroll */,
 				86C739E01CB4A0FF00E27C05 /* AutoAdLabelScrollTests */,
 				86C739EB1CB4A0FF00E27C05 /* AutoAdLabelScrollUITests */,
@@ -110,6 +111,8 @@
 		86C739C61CB4A0FF00E27C05 /* AutoAdLabelScroll */ = {
 			isa = PBXGroup;
 			children = (
+				86C739FD1CB4CFD800E27C05 /* Default-568h@2x.png */,
+				860319991CB506BE000C235F /* Page.gif */,
 				86C739FA1CB4A13800E27C05 /* HRAdView.h */,
 				86C739FB1CB4A13800E27C05 /* HRAdView.m */,
 				86C739CA1CB4A0FF00E27C05 /* AppDelegate.h */,
@@ -259,6 +262,7 @@
 				86C739D71CB4A0FF00E27C05 /* LaunchScreen.storyboard in Resources */,
 				86C739FE1CB4CFD800E27C05 /* Default-568h@2x.png in Resources */,
 				86C739D41CB4A0FF00E27C05 /* Assets.xcassets in Resources */,
+				8603199A1CB506BE000C235F /* Page.gif in Resources */,
 				86C739D21CB4A0FF00E27C05 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -512,6 +516,7 @@
 				86C739F31CB4A0FF00E27C05 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		86C739F41CB4A0FF00E27C05 /* Build configuration list for PBXNativeTarget "AutoAdLabelScrollTests" */ = {
 			isa = XCConfigurationList;
@@ -520,6 +525,7 @@
 				86C739F61CB4A0FF00E27C05 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		86C739F71CB4A0FF00E27C05 /* Build configuration list for PBXNativeTarget "AutoAdLabelScrollUITests" */ = {
 			isa = XCConfigurationList;
@@ -528,6 +534,7 @@
 				86C739F91CB4A0FF00E27C05 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

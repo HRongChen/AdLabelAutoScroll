@@ -60,9 +60,6 @@
 @property (nonatomic, assign) NSTextAlignment textAlignment;
 
 
-- (void)autoScroll;
-
-
 /**
  *  开始轮播
  */

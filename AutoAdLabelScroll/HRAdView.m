@@ -80,9 +80,6 @@
             _twoLabel.textAlignment = self.textAlignment;
             [self addSubview:_twoLabel];
         }
-        if (self.isAutoScroll) {
-            [self autoScroll];
-        }
     }
     return self;
 }
@@ -163,14 +160,7 @@
     }
     return _timer;
 }
-- (void)autoScroll{
-    if (self.timer.isValid) {
-        [self.timer invalidate];
-        self.timer = nil;
-    }
-    [[NSRunLoop mainRunLoop]addTimer:self.timer forMode:NSDefaultRunLoopMode];
-    
-}
+
 
 - (void)beginScroll{
     if (self.timer.isValid) {
@@ -179,7 +169,6 @@
     }
     
     [[NSRunLoop mainRunLoop]addTimer:self.timer forMode:NSDefaultRunLoopMode];
-    [self.timer fire];
 }
 
 - (void)closeScroll{

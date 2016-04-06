@@ -21,7 +21,7 @@
     [super viewDidLoad];
     NSArray *array = @[@"111111",@"22222222",@"33333333",@"4444444444"];
     
-    HRAdView * view = [[HRAdView alloc]initWithTitles:array andIsAutoScroll:YES];
+    HRAdView * view = [[HRAdView alloc]initWithTitles:array andIsAutoScroll:NO];
     view.frame = CGRectMake(0, 64, self.view.frame.size.width, 44);
     view.textAlignment = NSTextAlignmentLeft;//默认
     view.isHaveHeadImg = YES;
@@ -55,17 +55,14 @@
     [endScrollBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
     [self.view addSubview:endScrollBtn];
     
-    //    [self.adView autoScroll];
     
     // Do any additional setup after loading the view, typically from a nib.
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    /**
-     *  自动滚动
-     */
-    [self.adView autoScroll];
+  
+    [self.adView beginScroll];
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
