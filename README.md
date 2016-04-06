@@ -47,17 +47,14 @@
 /**
 *  点击事件响应
 */
+
+
 @property (nonatomic, copy) void (^clickAdBlock)(NSUInteger index);
 /**
 *  文本对齐方式
 */
 
 @property (nonatomic, assign) NSTextAlignment textAlignment;
-
-/**
-*  此方法是设置时间后自动轮播
-*/
-- (void)autoScroll;
 
 
 /**
@@ -82,5 +79,5 @@
 
 
 基本能满足需求。 因为没找到图片，就扔了个纯黑图片当轮播框前面的图标。
-![image](https://github.com/HRongChen/AdLabelAutoScroll/raw/master/Page.gif）
-         
+![image](https://github.com/HRongChen/AdLabelAutoScroll/AdLabelAutoScroll/raw/master/Page.gif)
+
