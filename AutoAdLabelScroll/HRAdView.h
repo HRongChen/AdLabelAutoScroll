@@ -33,11 +33,6 @@
  *  轮播时间间隔 默认2s
  */
 @property (nonatomic, assign) NSTimeInterval time;
-/**
- *  是否自动滚动 
- */
-
-@property (nonatomic, assign) BOOL isAutoScroll;
 
 /**
  *  是否含有Img头 默认为NO

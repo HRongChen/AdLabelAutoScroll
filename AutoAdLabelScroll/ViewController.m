@@ -19,7 +19,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSArray *array = @[@"111111",@"22222222",@"33333333",@"4444444444"];
+    NSArray *array = @[@"111111",@"22222222",@"33333333",@"4444444444",@"555555"];
     
     HRAdView * view = [[HRAdView alloc]initWithTitles:array];
     view.frame = CGRectMake(0, 64, self.view.frame.size.width, 44);

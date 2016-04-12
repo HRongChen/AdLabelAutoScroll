@@ -64,7 +64,9 @@
         
         if (!_oneLabel) {
             _oneLabel = [UILabel new];
-            _oneLabel.text = [NSString stringWithFormat:@"%@",self.adTitles[index]];
+            if (self.adTitles.count > 0) {
+                _oneLabel.text = [NSString stringWithFormat:@"%@",self.adTitles[index]];
+            }
             _oneLabel.font = self.labelFont;
             _oneLabel.textAlignment = self.textAlignment;
             
@@ -84,52 +86,41 @@
 }
 
 - (void)timeRepeat{
-    if (self.adTitles.count == 0) {
+    if (self.adTitles.count <= 1) {
+        [self.timer invalidate];
+        self.timer = nil;
         return;
     }
+    
+    __block UILabel *currentLabel;
+    __block UILabel *hidenLabel;
+    __weak typeof(self) weakself = self;
+    [self.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj isKindOfClass:[UILabel class]]) {
+            UILabel *label = obj;
+            NSString * string = weakself.adTitles[index];
+            if ([label.text isEqualToString:string]) {
+                currentLabel = label;
+            }else{
+                hidenLabel = label;
+            }
+        }
+    }];
+    
     if (index != self.adTitles.count-1) {
         index++;
     }else{
         index = 0;
     }
-    
-    
-    if (index == 0) {
-        self.oneLabel.text = [NSString stringWithFormat:@"%@",self.adTitles[index]];
-        
-    }else{
-        switch (index%2) {
-            case 0:
-            {
-                self.oneLabel.text = [NSString stringWithFormat:@"%@",self.adTitles[index]];
-            }
-                break;
-                
-            default:
-            {
-                self.twoLabel.text = [NSString stringWithFormat:@"%@",self.adTitles[index]];
-                
-            }
-                break;
-        }
-        
-    }
-    
-    if (index%2 == 0) {
-        [UIView animateWithDuration:1 animations:^{
-            self.oneLabel.frame = CGRectMake(margin, 0, ViewWidth, ViewHeight);
-            self.twoLabel.frame = CGRectMake(margin, -ViewHeight, ViewWidth, ViewHeight);
-        } completion:^(BOOL finished){
-            self.twoLabel.frame = CGRectMake(margin, ViewHeight, ViewWidth, ViewHeight);
-        }];
-    }else{
-        [UIView animateWithDuration:1 animations:^{
-            self.twoLabel.frame = CGRectMake(margin, 0, ViewWidth, ViewHeight);
-            self.oneLabel.frame = CGRectMake(margin, -ViewHeight, ViewWidth, ViewHeight);
-        } completion:^(BOOL finished){
-            self.oneLabel.frame = CGRectMake(margin, ViewHeight, ViewWidth, ViewHeight);
-        }];
-    }
+
+    hidenLabel.text = [NSString stringWithFormat:@"%@",self.adTitles[index]];
+    [UIView animateWithDuration:1 animations:^{
+        hidenLabel.frame = CGRectMake(margin, 0, ViewWidth, ViewHeight);
+        currentLabel.frame = CGRectMake(margin, -ViewHeight, ViewWidth, ViewHeight);
+    } completion:^(BOOL finished){
+        currentLabel.frame = CGRectMake(margin, ViewHeight, ViewWidth, ViewHeight);
+    }];
+
     
 }
 
