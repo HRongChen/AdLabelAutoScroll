@@ -28,7 +28,7 @@
     view.labelFont = [UIFont boldSystemFontOfSize:17];
     view.color = [UIColor redColor];
     view.time = 2.0f;
-    view.edgeInsets = UIEdgeInsetsMake(8, 30,8, 10);
+    view.edgeInsets = UIEdgeInsetsMake(8, 8,8, 10);
     __weak typeof(self) weakself = self;
     view.clickAdBlock = ^(NSUInteger index){
         DetailViewController *vc = [[DetailViewController alloc]init];
@@ -37,7 +37,7 @@
         [weakself.navigationController pushViewController:vc animated:YES];
         NSLog(@"%@",array[index]);
     };
-//    view.headImg = [UIImage imageNamed:@"laba.png"];
+    view.headImg = [UIImage imageNamed:@"laba.png"];
     [self.view addSubview:view];
     self.adView = view;
     view.backgroundColor = [UIColor whiteColor];
