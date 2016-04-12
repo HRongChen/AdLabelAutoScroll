@@ -34,11 +34,6 @@
         @property (nonatomic, assign) NSTimeInterval time;
 
         /**
-        *  是否含有Img头 默认为NO
-        */
-        @property (nonatomic, assign) BOOL isHaveHeadImg;
-
-        /**
         *  是否开启点击事件 默认为NO
         */
         @property (nonatomic, assign) BOOL isHaveTouchEvent;

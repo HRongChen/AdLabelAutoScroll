@@ -53,7 +53,6 @@
         self.color = [UIColor blackColor];
         self.time = 2.0f;
         self.textAlignment = NSTextAlignmentLeft;
-        self.isHaveHeadImg = NO;
         self.isHaveTouchEvent = NO;
         self.edgeInsets = UIEdgeInsetsZero;
         index = 0;
@@ -126,8 +125,7 @@
 
 - (void)layoutSubviews{
     [super layoutSubviews];
-    NSLog(@"%s",__func__);
-    if (self.isHaveHeadImg) {
+    if (self.headImg) {
         [self addSubview:self.headImageView];
         
         self.headImageView.frame = CGRectMake(self.edgeInsets.left, self.edgeInsets.top, ViewHeight-self.edgeInsets.top-self.edgeInsets.bottom, ViewHeight-self.edgeInsets.top-self.edgeInsets.bottom);
@@ -138,7 +136,7 @@
             [self.headImageView removeFromSuperview];
             self.headImageView = nil;
         }
-        margin = 0;
+        margin = 10;
     }
     
     self.oneLabel.frame = CGRectMake(margin, 0, ViewWidth, ViewHeight);
@@ -173,10 +171,6 @@
     _edgeInsets = edgeInsets;
 }
 
-- (void)setIsHaveHeadImg:(BOOL)isHaveHeadImg{
-    _isHaveHeadImg = isHaveHeadImg;
-    
-}
 
 - (void)setIsHaveTouchEvent:(BOOL)isHaveTouchEvent{
     if (isHaveTouchEvent) {

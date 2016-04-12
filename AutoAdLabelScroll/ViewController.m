@@ -24,7 +24,6 @@
     HRAdView * view = [[HRAdView alloc]initWithTitles:array];
     view.frame = CGRectMake(5, 64, self.view.frame.size.width-10, 44);
     view.textAlignment = NSTextAlignmentLeft;//默认
-    view.isHaveHeadImg = YES;
     view.isHaveTouchEvent = YES;
     view.labelFont = [UIFont boldSystemFontOfSize:17];
     view.color = [UIColor redColor];
@@ -38,7 +37,7 @@
         [weakself.navigationController pushViewController:vc animated:YES];
         NSLog(@"%@",array[index]);
     };
-    view.headImg = [UIImage imageNamed:@"laba.png"];
+//    view.headImg = [UIImage imageNamed:@"laba.png"];
     [self.view addSubview:view];
     self.adView = view;
     view.backgroundColor = [UIColor whiteColor];
