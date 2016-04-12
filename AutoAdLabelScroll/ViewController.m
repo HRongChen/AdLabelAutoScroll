@@ -22,13 +22,14 @@
     NSArray *array = @[@"111111",@"22222222",@"33333333",@"4444444444",@"555555"];
     
     HRAdView * view = [[HRAdView alloc]initWithTitles:array];
-    view.frame = CGRectMake(0, 64, self.view.frame.size.width, 44);
+    view.frame = CGRectMake(5, 64, self.view.frame.size.width-10, 44);
     view.textAlignment = NSTextAlignmentLeft;//默认
     view.isHaveHeadImg = YES;
     view.isHaveTouchEvent = YES;
     view.labelFont = [UIFont boldSystemFontOfSize:17];
     view.color = [UIColor redColor];
     view.time = 2.0f;
+    view.edgeInsets = UIEdgeInsetsMake(8, 30,8, 10);
     __weak typeof(self) weakself = self;
     view.clickAdBlock = ^(NSUInteger index){
         DetailViewController *vc = [[DetailViewController alloc]init];
@@ -37,11 +38,14 @@
         [weakself.navigationController pushViewController:vc animated:YES];
         NSLog(@"%@",array[index]);
     };
-    view.headImg = [UIImage imageNamed:@"Default-568h.png"];
+    view.headImg = [UIImage imageNamed:@"laba.png"];
     [self.view addSubview:view];
     self.adView = view;
-    view.backgroundColor = [UIColor grayColor];
-    
+    view.backgroundColor = [UIColor whiteColor];
+    view.layer.borderColor = [UIColor grayColor].CGColor;
+    view.layer.borderWidth = 1.0f;
+    view.layer.cornerRadius = 5;
+    view.layer.masksToBounds  = YES;
     UIButton *beginScrollBtn = [[UIButton alloc]initWithFrame:CGRectMake(10, 200, 80, 40)];
     [beginScrollBtn addTarget:self action:@selector(startScroll) forControlEvents:UIControlEventTouchUpInside];
     [beginScrollBtn setTitle:@"开始" forState:UIControlStateNormal];

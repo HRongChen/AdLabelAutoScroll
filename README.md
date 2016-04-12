@@ -16,6 +16,10 @@
         @property (nonatomic, strong) UIImage *headImg;
 
         /**
+        *  图片位置
+        */
+        @property (nonatomic, assign) UIEdgeInsets edgeInsets;
+        /**
         *  广告字体 默认为16号系统字体
         */
         @property (nonatomic, strong) UIFont *labelFont;

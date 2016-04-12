@@ -55,7 +55,7 @@
         self.textAlignment = NSTextAlignmentLeft;
         self.isHaveHeadImg = NO;
         self.isHaveTouchEvent = NO;
-        
+        self.edgeInsets = UIEdgeInsetsZero;
         index = 0;
         
         if (!_headImageView) {
@@ -112,7 +112,7 @@
     }else{
         index = 0;
     }
-
+    
     hidenLabel.text = [NSString stringWithFormat:@"%@",self.adTitles[index]];
     [UIView animateWithDuration:1 animations:^{
         hidenLabel.frame = CGRectMake(margin, 0, ViewWidth, ViewHeight);
@@ -120,16 +120,18 @@
     } completion:^(BOOL finished){
         currentLabel.frame = CGRectMake(margin, ViewHeight, ViewWidth, ViewHeight);
     }];
-
+    
     
 }
 
 - (void)layoutSubviews{
     [super layoutSubviews];
+    NSLog(@"%s",__func__);
     if (self.isHaveHeadImg) {
         [self addSubview:self.headImageView];
-        self.headImageView.frame = CGRectMake(0, 0, ViewHeight,ViewHeight);
-        margin = ViewHeight +10;
+        
+        self.headImageView.frame = CGRectMake(self.edgeInsets.left, self.edgeInsets.top, ViewHeight-self.edgeInsets.top-self.edgeInsets.bottom, ViewHeight-self.edgeInsets.top-self.edgeInsets.bottom);
+        margin = CGRectGetMaxX(self.headImageView.frame) +10;
     }else{
         
         if (self.headImageView) {
@@ -167,7 +169,9 @@
     self.timer = nil;
 }
 
-
+- (void)setEdgeInsets:(UIEdgeInsets)edgeInsets{
+    _edgeInsets = edgeInsets;
+}
 
 - (void)setIsHaveHeadImg:(BOOL)isHaveHeadImg{
     _isHaveHeadImg = isHaveHeadImg;
