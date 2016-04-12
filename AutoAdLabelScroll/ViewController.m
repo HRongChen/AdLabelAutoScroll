@@ -45,15 +45,17 @@
     view.layer.borderWidth = 1.0f;
     view.layer.cornerRadius = 5;
     view.layer.masksToBounds  = YES;
-    UIButton *beginScrollBtn = [[UIButton alloc]initWithFrame:CGRectMake(10, 200, 80, 40)];
-    [beginScrollBtn addTarget:self action:@selector(startScroll) forControlEvents:UIControlEventTouchUpInside];
+    UIButton *beginScrollBtn = [[UIButton alloc]initWithFrame:CGRectMake(30, 200, 80, 40)];
+    [beginScrollBtn addTarget:self action:@selector(startScroll:) forControlEvents:UIControlEventTouchDown];
+    [beginScrollBtn setBackgroundColor:[UIColor blueColor]];
     [beginScrollBtn setTitle:@"开始" forState:UIControlStateNormal];
     [beginScrollBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
     [self.view addSubview:beginScrollBtn];
     
     
-    UIButton *endScrollBtn = [[UIButton alloc]initWithFrame:CGRectMake(200, 200, 80, 40)];
-    [endScrollBtn addTarget:self action:@selector(endScroll) forControlEvents:UIControlEventTouchUpInside];
+    UIButton *endScrollBtn = [[UIButton alloc]initWithFrame:CGRectMake(self.view.frame.size.width-110, 200, 80, 40)];
+    [endScrollBtn addTarget:self action:@selector(endScroll:) forControlEvents:UIControlEventTouchDown];
+    [endScrollBtn setBackgroundColor:[UIColor blueColor]];
     [endScrollBtn setTitle:@"结束" forState:UIControlStateNormal];
     [endScrollBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
     [self.view addSubview:endScrollBtn];
@@ -75,18 +77,33 @@
 }
 
 
-- (void)startScroll{
+- (void)startScroll:(UIButton *)sender{
     /**
      *  手动控制滚动
      */
     [self.adView beginScroll];
+    [self scaleTheView:sender];
 }
 
-- (void)endScroll{
+- (void)endScroll:(UIButton *)sender{
     /**
      *  停止滚动
      */
     [self.adView closeScroll];
+    [self scaleTheView:sender];
+    
+}
+
+- (void)scaleTheView:(UIButton *)button{
+    
+    [UIView animateWithDuration:0.2f animations:^{
+        CGFloat value = 0.8f;
+        button.transform = CGAffineTransformMakeScale(value, value);
+    }completion:^(BOOL finished) {
+        CGFloat value = 1.0f;
+        button.transform = CGAffineTransformMakeScale(value, value);
+    }];
+
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
