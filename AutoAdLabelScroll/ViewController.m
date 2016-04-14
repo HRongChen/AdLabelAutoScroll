@@ -47,7 +47,7 @@
     view.layer.masksToBounds  = YES;
     UIButton *beginScrollBtn = [[UIButton alloc]initWithFrame:CGRectMake(30, 200, 80, 40)];
     [beginScrollBtn addTarget:self action:@selector(startScroll:) forControlEvents:UIControlEventTouchDown];
-    [beginScrollBtn setBackgroundColor:[UIColor blueColor]];
+    [beginScrollBtn setBackgroundColor:[UIColor darkGrayColor]];
     [beginScrollBtn setTitle:@"开始" forState:UIControlStateNormal];
     [beginScrollBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
     [self.view addSubview:beginScrollBtn];
@@ -55,7 +55,7 @@
     
     UIButton *endScrollBtn = [[UIButton alloc]initWithFrame:CGRectMake(self.view.frame.size.width-110, 200, 80, 40)];
     [endScrollBtn addTarget:self action:@selector(endScroll:) forControlEvents:UIControlEventTouchDown];
-    [endScrollBtn setBackgroundColor:[UIColor blueColor]];
+    [endScrollBtn setBackgroundColor:[UIColor darkGrayColor]];
     [endScrollBtn setTitle:@"结束" forState:UIControlStateNormal];
     [endScrollBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
     [self.view addSubview:endScrollBtn];
