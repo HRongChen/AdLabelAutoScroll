@@ -11,26 +11,29 @@
 #define ViewHeight  self.bounds.size.height
 
 @interface HRAdView ()
+
 /**
  *  文字广告条前面的图标
  */
 @property (nonatomic, strong) UIImageView *headImageView;
+
 /**
- *  轮流显示的两个Label
+ 轮流显示的第一个Label
  */
 @property (nonatomic, strong) UILabel *oneLabel;
+
+/**
+ 轮流显示的第二个Label
+ */
 @property (nonatomic, strong) UILabel *twoLabel;
 
 /**
  *  计时器
  */
-
 @property (nonatomic, strong) NSTimer *timer;
 
-
-
-
 @end
+
 
 @implementation HRAdView
 {
@@ -39,8 +42,7 @@
     BOOL isBegin;
 }
 
-
-- (instancetype)initWithTitles:(NSArray *)titles{
+- (instancetype)initWithTitles:(NSArray *)titles {
     
     self = [super init];
     
@@ -55,6 +57,7 @@
         self.textAlignment = NSTextAlignmentLeft;
         self.isHaveTouchEvent = NO;
         self.edgeInsets = UIEdgeInsetsZero;
+        self.defaultMargin = 0;
         index = 0;
         
         if (!_headImageView) {
@@ -64,7 +67,7 @@
         if (!_oneLabel) {
             _oneLabel = [UILabel new];
             if (self.adTitles.count > 0) {
-                _oneLabel.text = [NSString stringWithFormat:@"%@",self.adTitles[index]];
+                _oneLabel.text = [NSString stringWithFormat:@"%@", self.adTitles[index]];
             }
             _oneLabel.font = self.labelFont;
             _oneLabel.textAlignment = self.textAlignment;
@@ -84,7 +87,7 @@
     return self;
 }
 
-- (void)timeRepeat{
+- (void)timeRepeat {
     if (self.adTitles.count <= 1) {
         [self.timer invalidate];
         self.timer = nil;
@@ -97,7 +100,7 @@
     [self.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([obj isKindOfClass:[UILabel class]]) {
             UILabel *label = obj;
-            NSString * string = weakself.adTitles[index];
+            NSString *string = weakself.adTitles[index];
             if ([label.text isEqualToString:string]) {
                 currentLabel = label;
             }else{
@@ -106,53 +109,54 @@
         }
     }];
     
-    if (index != self.adTitles.count-1) {
+    if (index != self.adTitles.count - 1) {
         index++;
-    }else{
+    } else {
         index = 0;
     }
     
-    hidenLabel.text = [NSString stringWithFormat:@"%@",self.adTitles[index]];
+    hidenLabel.text = [NSString stringWithFormat:@"%@", self.adTitles[index]];
     [UIView animateWithDuration:1 animations:^{
         hidenLabel.frame = CGRectMake(margin, 0, ViewWidth, ViewHeight);
         currentLabel.frame = CGRectMake(margin, -ViewHeight, ViewWidth, ViewHeight);
-    } completion:^(BOOL finished){
+    } completion:^(BOOL finished) {
         currentLabel.frame = CGRectMake(margin, ViewHeight, ViewWidth, ViewHeight);
     }];
-    
-    
 }
 
-- (void)layoutSubviews{
+- (void)layoutSubviews {
     [super layoutSubviews];
     if (self.headImg) {
         [self addSubview:self.headImageView];
         
-        self.headImageView.frame = CGRectMake(self.edgeInsets.left, self.edgeInsets.top, ViewHeight-self.edgeInsets.top-self.edgeInsets.bottom, ViewHeight-self.edgeInsets.top-self.edgeInsets.bottom);
-        margin = CGRectGetMaxX(self.headImageView.frame) +10;
-    }else{
-        
+        self.headImageView.frame = CGRectMake(self.edgeInsets.left,
+                                              self.edgeInsets.top, ViewHeight
+                                              - self.edgeInsets.top
+                                              - self.edgeInsets.bottom,
+                                              ViewHeight
+                                              - self.edgeInsets.top
+                                              - self.edgeInsets.bottom);
+        margin = CGRectGetMaxX(self.headImageView.frame) + self.defaultMargin;
+    } else {
         if (self.headImageView) {
             [self.headImageView removeFromSuperview];
             self.headImageView = nil;
         }
-        margin = 10;
+        margin = self.defaultMargin;
     }
     
     self.oneLabel.frame = CGRectMake(margin, 0, ViewWidth, ViewHeight);
     self.twoLabel.frame = CGRectMake(margin, ViewHeight, ViewWidth, ViewHeight);
 }
 
-
-- (NSTimer *)timer{
+- (NSTimer *)timer {
     if (!_timer) {
         _timer = [NSTimer timerWithTimeInterval:self.time target:self selector:@selector(timeRepeat) userInfo:self repeats:YES];
     }
     return _timer;
 }
 
-
-- (void)beginScroll{
+- (void)beginScroll {
     if (self.timer.isValid) {
         [self.timer invalidate];
         self.timer = nil;
@@ -161,28 +165,27 @@
     [[NSRunLoop mainRunLoop]addTimer:self.timer forMode:NSDefaultRunLoopMode];
 }
 
-- (void)closeScroll{
-    
+- (void)closeScroll {
     [self.timer invalidate];
     self.timer = nil;
 }
 
-- (void)setEdgeInsets:(UIEdgeInsets)edgeInsets{
+- (void)setEdgeInsets:(UIEdgeInsets)edgeInsets {
     _edgeInsets = edgeInsets;
 }
 
 
-- (void)setIsHaveTouchEvent:(BOOL)isHaveTouchEvent{
+- (void)setIsHaveTouchEvent:(BOOL)isHaveTouchEvent {
     if (isHaveTouchEvent) {
         self.userInteractionEnabled = YES;
         UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(clickEvent:)];
         [self addGestureRecognizer:tapGestureRecognizer];
-    }else{
+    } else {
         self.userInteractionEnabled = NO;
     }
 }
 
-- (void)setTime:(NSTimeInterval)time{
+- (void)setTime:(NSTimeInterval)time {
     _time = time;
     if (self.timer.isValid) {
         [self.timer isValid];
@@ -191,49 +194,43 @@
 }
 
 
-- (void)setHeadImg:(UIImage *)headImg{
+- (void)setHeadImg:(UIImage *)headImg {
     _headImg = headImg;
     
     self.headImageView.image = headImg;
 }
 
-- (void)setTextAlignment:(NSTextAlignment)textAlignment{
+- (void)setTextAlignment:(NSTextAlignment)textAlignment {
     _textAlignment = textAlignment;
     
     self.oneLabel.textAlignment = _textAlignment;
     self.twoLabel.textAlignment = _textAlignment;
 }
 
-- (void)setColor:(UIColor *)color{
+- (void)setColor:(UIColor *)color {
     _color = color;
     self.oneLabel.textColor = _color;
     self.twoLabel.textColor = _color;
 }
 
-- (void)setLabelFont:(UIFont *)labelFont{
+- (void)setLabelFont:(UIFont *)labelFont {
     _labelFont = labelFont;
     self.oneLabel.font = _labelFont;
     self.twoLabel.font = _labelFont;
 }
 
-
-- (void)clickEvent:(UITapGestureRecognizer *)tapGestureRecognizer{
-    
-    
-    
+- (void)clickEvent:(UITapGestureRecognizer *)tapGestureRecognizer {
     [self.adTitles enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        
         if (index % 2 == 0 && [self.oneLabel.text isEqualToString:obj]) {
             if (self.clickAdBlock) {
                 self.clickAdBlock(index);
             }
-        }else if(index % 2 != 0 && [self.twoLabel.text isEqualToString:obj]){
+        } else if (index % 2 != 0 && [self.twoLabel.text isEqualToString:obj]) {
             if (self.clickAdBlock) {
                 self.clickAdBlock(index);
             }
         }
     }];
-    
 }
 
 
