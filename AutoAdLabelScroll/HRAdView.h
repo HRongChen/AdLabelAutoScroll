@@ -61,6 +61,11 @@
 @property (nonatomic, assign) CGFloat defaultMargin;
 
 /**
+ 文字行数
+ */
+@property (nonatomic, assign) NSInteger numberOfTextLines;
+
+/**
  *  开始轮播
  */
 - (void)beginScroll;

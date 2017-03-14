@@ -65,26 +65,28 @@
         }
         
         if (!_oneLabel) {
-            _oneLabel = [UILabel new];
+            _oneLabel = [self createLabel];
             if (self.adTitles.count > 0) {
                 _oneLabel.text = [NSString stringWithFormat:@"%@", self.adTitles[index]];
             }
-            _oneLabel.font = self.labelFont;
-            _oneLabel.textAlignment = self.textAlignment;
-            
-            _oneLabel.textColor = self.color;
             [self addSubview:_oneLabel];
         }
         
         if (!_twoLabel) {
-            _twoLabel = [UILabel new];
-            _twoLabel.font = self.labelFont;
-            _twoLabel.textColor = self.color;
-            _twoLabel.textAlignment = self.textAlignment;
+            _twoLabel = [self createLabel];
             [self addSubview:_twoLabel];
         }
     }
     return self;
+}
+
+- (UILabel *)createLabel {
+    UILabel *label = [UILabel new];
+    label.font = self.labelFont;
+    label.textColor = self.color;
+    label.textAlignment = self.textAlignment;
+    label.numberOfLines = self.numberOfTextLines;
+    return label;
 }
 
 - (void)timeRepeat {
@@ -130,7 +132,8 @@
         [self addSubview:self.headImageView];
         
         self.headImageView.frame = CGRectMake(self.edgeInsets.left,
-                                              self.edgeInsets.top, ViewHeight
+                                              self.edgeInsets.top,
+                                              ViewHeight
                                               - self.edgeInsets.top
                                               - self.edgeInsets.bottom,
                                               ViewHeight
@@ -174,7 +177,6 @@
     _edgeInsets = edgeInsets;
 }
 
-
 - (void)setIsHaveTouchEvent:(BOOL)isHaveTouchEvent {
     if (isHaveTouchEvent) {
         self.userInteractionEnabled = YES;
@@ -192,7 +194,6 @@
         self.timer = nil;
     }
 }
-
 
 - (void)setHeadImg:(UIImage *)headImg {
     _headImg = headImg;
@@ -217,6 +218,12 @@
     _labelFont = labelFont;
     self.oneLabel.font = _labelFont;
     self.twoLabel.font = _labelFont;
+}
+
+- (void)setNumberOfTextLines:(NSInteger)numberOfTextLines {
+    _numberOfTextLines = numberOfTextLines;
+    self.oneLabel.numberOfLines = _numberOfTextLines;
+    self.twoLabel.numberOfLines = _numberOfTextLines;
 }
 
 - (void)clickEvent:(UITapGestureRecognizer *)tapGestureRecognizer {
