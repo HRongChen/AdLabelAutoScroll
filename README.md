@@ -1,6 +1,8 @@
 # AdLabelAutoScroll
 文字广告轮播
-
+1.1 
+新增图片与文字间距
+新增多行支持（但此多行需要此控件高度能直接显示）
 本项目仅封装了文字轮播，类似于京东滚动提示那种，带有点击事件
 ####具体用法在demo里面有。
 
@@ -49,6 +51,15 @@
         */
 
         @property (nonatomic, assign) NSTextAlignment textAlignment;
+        /**
+        文字左边默认间距
+        */
+        @property (nonatomic, assign) CGFloat defaultMargin;
+
+        /**
+        文字行数
+        */
+        @property (nonatomic, assign) NSInteger numberOfTextLines;
 
 
         /**
