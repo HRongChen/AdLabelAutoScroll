@@ -18,7 +18,6 @@
 		86C739ED1CB4A0FF00E27C05 /* AutoAdLabelScrollUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C739EC1CB4A0FF00E27C05 /* AutoAdLabelScrollUITests.m */; };
 		86C739FC1CB4A13800E27C05 /* HRAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C739FB1CB4A13800E27C05 /* HRAdView.m */; };
 		86C73A011CB4E84200E27C05 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C73A001CB4E84200E27C05 /* DetailViewController.m */; };
-		86D5E5D11CBCED9C0093DB29 /* laba.png in Resources */ = {isa = PBXBuildFile; fileRef = 86D5E5D01CBCED9C0093DB29 /* laba.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,7 +59,6 @@
 		86C739FB1CB4A13800E27C05 /* HRAdView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HRAdView.m; sourceTree = "<group>"; };
 		86C739FF1CB4E84100E27C05 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		86C73A001CB4E84200E27C05 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
-		86D5E5D01CBCED9C0093DB29 /* laba.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = laba.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,7 +109,6 @@
 		86C739C61CB4A0FF00E27C05 /* AutoAdLabelScroll */ = {
 			isa = PBXGroup;
 			children = (
-				86D5E5D01CBCED9C0093DB29 /* laba.png */,
 				86356AA01CBDDD6100E093FD /* Page.gif */,
 				86C739FA1CB4A13800E27C05 /* HRAdView.h */,
 				86C739FB1CB4A13800E27C05 /* HRAdView.m */,
@@ -218,7 +215,7 @@
 		86C739BC1CB4A0FF00E27C05 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = "陈华荣";
 				TargetAttributes = {
 					86C739C31CB4A0FF00E27C05 = {
@@ -262,7 +259,6 @@
 				86C739D71CB4A0FF00E27C05 /* LaunchScreen.storyboard in Resources */,
 				86C739D41CB4A0FF00E27C05 /* Assets.xcassets in Resources */,
 				86C739D21CB4A0FF00E27C05 /* Main.storyboard in Resources */,
-				86D5E5D11CBCED9C0093DB29 /* laba.png in Resources */,
 				86356AA11CBDDD6100E093FD /* Page.gif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -361,8 +357,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -405,8 +403,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -434,7 +434,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = AutoAdLabelScroll/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.chenhuarong.AutoAdLabelScroll;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -446,7 +446,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = AutoAdLabelScroll/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.chenhuarong.AutoAdLabelScroll;
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -19,7 +19,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSArray *array = @[@"111111",@"22222222",@"33333333",@"4444444444",@"555555"];
+    NSArray *array = @[@"111111111111111111111111111111111111111111111111111",@"22222222",@"33333333"];
     
     HRAdView * view = [[HRAdView alloc]initWithTitles:array];
     view.frame = CGRectMake(5, 64, self.view.frame.size.width-10, 44);
@@ -28,6 +28,8 @@
     view.labelFont = [UIFont boldSystemFontOfSize:17];
     view.color = [UIColor redColor];
     view.time = 2.0f;
+    view.defaultMargin = 10;
+    view.numberOfTextLines = 2;
     view.edgeInsets = UIEdgeInsetsMake(8, 8,8, 10);
     __weak typeof(self) weakself = self;
     view.clickAdBlock = ^(NSUInteger index){

@@ -119,10 +119,10 @@
     
     hidenLabel.text = [NSString stringWithFormat:@"%@", self.adTitles[index]];
     [UIView animateWithDuration:1 animations:^{
-        hidenLabel.frame = CGRectMake(margin, 0, ViewWidth, ViewHeight);
-        currentLabel.frame = CGRectMake(margin, -ViewHeight, ViewWidth, ViewHeight);
+        hidenLabel.frame = CGRectMake(margin, 0, ViewWidth - margin, ViewHeight);
+        currentLabel.frame = CGRectMake(margin, -ViewHeight, ViewWidth - margin, ViewHeight);
     } completion:^(BOOL finished) {
-        currentLabel.frame = CGRectMake(margin, ViewHeight, ViewWidth, ViewHeight);
+        currentLabel.frame = CGRectMake(margin, ViewHeight, ViewWidth - margin, ViewHeight);
     }];
 }
 
@@ -133,12 +133,9 @@
         
         self.headImageView.frame = CGRectMake(self.edgeInsets.left,
                                               self.edgeInsets.top,
-                                              ViewHeight
-                                              - self.edgeInsets.top
-                                              - self.edgeInsets.bottom,
-                                              ViewHeight
-                                              - self.edgeInsets.top
-                                              - self.edgeInsets.bottom);
+                                              ViewHeight - self.edgeInsets.top - self.edgeInsets.bottom,
+                                              ViewHeight - self.edgeInsets.top - self.edgeInsets.bottom
+                                              );
         margin = CGRectGetMaxX(self.headImageView.frame) + self.defaultMargin;
     } else {
         if (self.headImageView) {
@@ -148,8 +145,8 @@
         margin = self.defaultMargin;
     }
     
-    self.oneLabel.frame = CGRectMake(margin, 0, ViewWidth, ViewHeight);
-    self.twoLabel.frame = CGRectMake(margin, ViewHeight, ViewWidth, ViewHeight);
+    self.oneLabel.frame = CGRectMake(margin, 0, ViewWidth - margin, ViewHeight);
+    self.twoLabel.frame = CGRectMake(margin, ViewHeight, ViewWidth - margin, ViewHeight);
 }
 
 - (NSTimer *)timer {
