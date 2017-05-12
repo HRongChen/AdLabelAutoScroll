@@ -12,10 +12,11 @@
 
 @interface HRAdView ()
 
+@property (nonatomic, assign) NSUInteger currentIndex;
 /**
  *  文字广告条前面的图标
  */
-@property (nonatomic, strong) UIImageView *headImageView;
+@property (nonatomic, strong) UIImageView *iconView;
 
 /**
  轮流显示的第一个Label
@@ -26,7 +27,7 @@
  轮流显示的第二个Label
  */
 @property (nonatomic, strong) UILabel *twoLabel;
-
+@property (nonatomic, weak) UILabel *currentLabel;
 /**
  *  计时器
  */
@@ -37,38 +38,32 @@
 
 @implementation HRAdView
 {
-    NSUInteger index;
     CGFloat margin;
-    BOOL isBegin;
 }
 
-- (instancetype)initWithTitles:(NSArray *)titles {
-    
-    self = [super init];
-    
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
     if (self) {
         margin = 0;
         self.clipsToBounds = YES;
-        self.adTitles = titles;
-        self.headImg = nil;
-        self.labelFont = [UIFont systemFontOfSize:16];
-        self.color = [UIColor blackColor];
-        self.time = 2.0f;
+        self.icon = nil;
+        self.font = [UIFont systemFontOfSize:16];
+        self.textColor = [UIColor blackColor];
+        self.duration = 2.0f;
+        self.animateDuration = 1.f;
         self.textAlignment = NSTextAlignmentLeft;
-        self.isHaveTouchEvent = NO;
-        self.edgeInsets = UIEdgeInsetsZero;
-        self.defaultMargin = 0;
-        index = 0;
+        self.touchEnabled = NO;
+        self.iconInsets = UIEdgeInsetsZero;
+        self.textInsets = UIEdgeInsetsZero;
+        _currentIndex = NSNotFound;
         
-        if (!_headImageView) {
-            _headImageView = [UIImageView new];
+        if (!_iconView) {
+            _iconView = [UIImageView new];
         }
         
         if (!_oneLabel) {
             _oneLabel = [self createLabel];
-            if (self.adTitles.count > 0) {
-                _oneLabel.text = [NSString stringWithFormat:@"%@", self.adTitles[index]];
-            }
             [self addSubview:_oneLabel];
         }
         
@@ -80,101 +75,106 @@
     return self;
 }
 
+- (instancetype)initWithTexts:(NSArray<NSString *> *)titles {
+    if ([self init]) {
+        self.texts = titles;
+        if (self.texts.count > 0) {
+            _oneLabel.text = self.texts.firstObject;
+            _currentIndex = 0;
+            _currentLabel = _oneLabel;
+        }
+    }
+    
+    return self;
+}
+
 - (UILabel *)createLabel {
     UILabel *label = [UILabel new];
-    label.font = self.labelFont;
-    label.textColor = self.color;
+    label.font = self.font;
+    label.textColor = self.textColor;
     label.textAlignment = self.textAlignment;
     label.numberOfLines = self.numberOfTextLines;
     return label;
 }
 
+- (void)animateForText:(NSString *)text {
+    UILabel *willHideLabel = self.currentLabel;
+    UILabel *willShowLabel = self.currentLabel == self.oneLabel ? self.twoLabel : self.oneLabel;
+    
+    willShowLabel.text = text;
+    [UIView animateWithDuration:self.animateDuration animations:^{
+        willShowLabel.frame = CGRectMake(margin, 0, ViewWidth - margin - self.textInsets.right, ViewHeight - self.textInsets.top - self.textInsets.bottom);
+        willHideLabel.frame = CGRectMake(margin, -ViewHeight, ViewWidth - margin - self.textInsets.right, ViewHeight - self.textInsets.top - self.textInsets.bottom);
+    } completion:^(BOOL finished) {
+        willHideLabel.frame = CGRectMake(margin, ViewHeight, ViewWidth - margin - self.textInsets.right, ViewHeight - self.textInsets.top - self.textInsets.bottom);
+        self.currentLabel = willShowLabel;
+    }];
+}
+
 - (void)timeRepeat {
-    if (self.adTitles.count <= 1) {
-        [self.timer invalidate];
-        self.timer = nil;
+    if (self.texts.count == 0 && _currentIndex != NSNotFound) {
+        _currentIndex = NSNotFound;
+        [self animateForText:@""];
         return;
     }
     
-    __block UILabel *currentLabel;
-    __block UILabel *hidenLabel;
-    __weak typeof(self) weakself = self;
-    [self.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if ([obj isKindOfClass:[UILabel class]]) {
-            UILabel *label = obj;
-            NSString *string = weakself.adTitles[index];
-            if ([label.text isEqualToString:string]) {
-                currentLabel = label;
-            }else{
-                hidenLabel = label;
-            }
-        }
-    }];
-    
-    if (index != self.adTitles.count - 1) {
-        index++;
-    } else {
-        index = 0;
+    if (self.texts.count == 1 && _currentIndex != 0) {
+        _currentIndex = 0;
+        [self animateForText:self.texts.firstObject];
+        return;
     }
     
-    hidenLabel.text = [NSString stringWithFormat:@"%@", self.adTitles[index]];
-    [UIView animateWithDuration:1 animations:^{
-        hidenLabel.frame = CGRectMake(margin, 0, ViewWidth - margin, ViewHeight);
-        currentLabel.frame = CGRectMake(margin, -ViewHeight, ViewWidth - margin, ViewHeight);
-    } completion:^(BOOL finished) {
-        currentLabel.frame = CGRectMake(margin, ViewHeight, ViewWidth - margin, ViewHeight);
-    }];
+    if (_currentIndex < self.texts.count - 1) {
+        _currentIndex ++;
+    } else {
+        _currentIndex = 0;
+    }
+    [self animateForText:self.texts[_currentIndex]];
 }
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    if (self.headImg) {
-        [self addSubview:self.headImageView];
-        
-        self.headImageView.frame = CGRectMake(self.edgeInsets.left,
-                                              self.edgeInsets.top,
-                                              ViewHeight - self.edgeInsets.top - self.edgeInsets.bottom,
-                                              ViewHeight - self.edgeInsets.top - self.edgeInsets.bottom
+    if (self.icon) {
+        [self addSubview:self.iconView];
+        self.iconView.frame = CGRectMake(self.iconInsets.left,
+                                              self.iconInsets.top,
+                                              ViewHeight - self.iconInsets.top - self.iconInsets.bottom,
+                                              ViewHeight - self.iconInsets.top - self.iconInsets.bottom
                                               );
-        margin = CGRectGetMaxX(self.headImageView.frame) + self.defaultMargin;
+        margin = CGRectGetMaxX(self.iconView.frame) + self.textInsets.left;
     } else {
-        if (self.headImageView) {
-            [self.headImageView removeFromSuperview];
-            self.headImageView = nil;
+        if (self.iconView) {
+            [self.iconView removeFromSuperview];
+            self.iconView = nil;
         }
-        margin = self.defaultMargin;
+        margin = self.textInsets.left;
     }
     
-    self.oneLabel.frame = CGRectMake(margin, 0, ViewWidth - margin, ViewHeight);
-    self.twoLabel.frame = CGRectMake(margin, ViewHeight, ViewWidth - margin, ViewHeight);
+    self.oneLabel.frame = CGRectMake(margin, 0, ViewWidth - margin - self.textInsets.right, ViewHeight - self.textInsets.top - self.textInsets.bottom);
+    self.twoLabel.frame = CGRectMake(margin, ViewHeight, ViewWidth - margin - self.textInsets.right, ViewHeight - self.textInsets.top - self.textInsets.bottom);
 }
 
-- (NSTimer *)timer {
-    if (!_timer) {
-        _timer = [NSTimer timerWithTimeInterval:self.time target:self selector:@selector(timeRepeat) userInfo:self repeats:YES];
-    }
-    return _timer;
-}
-
-- (void)beginScroll {
-    if (self.timer.isValid) {
+- (void)startScroll {
+    if (self.timer) {
         [self.timer invalidate];
         self.timer = nil;
     }
-    
-    [[NSRunLoop mainRunLoop]addTimer:self.timer forMode:NSDefaultRunLoopMode];
+    self.timer = [NSTimer timerWithTimeInterval:self.duration target:self selector:@selector(timeRepeat) userInfo:self repeats:YES];
+    [[NSRunLoop mainRunLoop] addTimer:self.timer forMode:NSDefaultRunLoopMode];
 }
 
-- (void)closeScroll {
-    [self.timer invalidate];
-    self.timer = nil;
+- (void)stopScroll {
+    if (self.timer) {
+        [self.timer invalidate];
+        self.timer = nil;
+    }
 }
 
-- (void)setEdgeInsets:(UIEdgeInsets)edgeInsets {
-    _edgeInsets = edgeInsets;
+- (void)setIconInsets:(UIEdgeInsets)iconInsets {
+    _iconInsets = iconInsets;
 }
 
-- (void)setIsHaveTouchEvent:(BOOL)isHaveTouchEvent {
+- (void)setTouchEnabled:(BOOL)isHaveTouchEvent {
     if (isHaveTouchEvent) {
         self.userInteractionEnabled = YES;
         UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(clickEvent:)];
@@ -184,18 +184,18 @@
     }
 }
 
-- (void)setTime:(NSTimeInterval)time {
-    _time = time;
+- (void)setDuration:(NSTimeInterval)time {
+    _duration = time;
     if (self.timer.isValid) {
         [self.timer isValid];
         self.timer = nil;
     }
 }
 
-- (void)setHeadImg:(UIImage *)headImg {
-    _headImg = headImg;
+- (void)setIcon:(UIImage *)headImg {
+    _icon = headImg;
     
-    self.headImageView.image = headImg;
+    _iconView.image = headImg;
 }
 
 - (void)setTextAlignment:(NSTextAlignment)textAlignment {
@@ -205,16 +205,16 @@
     self.twoLabel.textAlignment = _textAlignment;
 }
 
-- (void)setColor:(UIColor *)color {
-    _color = color;
-    self.oneLabel.textColor = _color;
-    self.twoLabel.textColor = _color;
+- (void)setTextColor:(UIColor *)color {
+    _textColor = color;
+    self.oneLabel.textColor = color;
+    self.twoLabel.textColor = color;
 }
 
-- (void)setLabelFont:(UIFont *)labelFont {
-    _labelFont = labelFont;
-    self.oneLabel.font = _labelFont;
-    self.twoLabel.font = _labelFont;
+- (void)setFont:(UIFont *)labelFont {
+    _font = labelFont;
+    self.oneLabel.font = labelFont;
+    self.twoLabel.font = labelFont;
 }
 
 - (void)setNumberOfTextLines:(NSInteger)numberOfTextLines {
@@ -224,17 +224,9 @@
 }
 
 - (void)clickEvent:(UITapGestureRecognizer *)tapGestureRecognizer {
-    [self.adTitles enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if (index % 2 == 0 && [self.oneLabel.text isEqualToString:obj]) {
-            if (self.clickAdBlock) {
-                self.clickAdBlock(index);
-            }
-        } else if (index % 2 != 0 && [self.twoLabel.text isEqualToString:obj]) {
-            if (self.clickAdBlock) {
-                self.clickAdBlock(index);
-            }
-        }
-    }];
+    if (self.clickAdBlock) {
+        self.clickAdBlock(_currentIndex);
+    }
 }
 
 
