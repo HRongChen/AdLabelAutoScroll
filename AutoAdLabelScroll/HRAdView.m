@@ -9,7 +9,8 @@
 #import "HRAdView.h"
 #define ViewWidth  self.bounds.size.width
 #define ViewHeight  self.bounds.size.height
-
+#define CurrentTag 111
+#define HiddenTag 222
 @interface HRAdView ()
 
 /**
@@ -98,12 +99,11 @@
     
     __block UILabel *currentLabel;
     __block UILabel *hidenLabel;
-    __weak typeof(self) weakself = self;
     [self.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([obj isKindOfClass:[UILabel class]]) {
             UILabel *label = obj;
-            NSString *string = weakself.adTitles[index];
-            if ([label.text isEqualToString:string]) {
+            
+            if (label.tag == HiddenTag) {
                 currentLabel = label;
             }else{
                 hidenLabel = label;
@@ -123,6 +123,8 @@
         currentLabel.frame = CGRectMake(margin, -ViewHeight, ViewWidth - margin, ViewHeight);
     } completion:^(BOOL finished) {
         currentLabel.frame = CGRectMake(margin, ViewHeight, ViewWidth - margin, ViewHeight);
+        currentLabel.tag = CurrentTag;
+        hidenLabel.tag = HiddenTag;
     }];
 }
 
@@ -146,6 +148,7 @@
     }
     
     self.oneLabel.frame = CGRectMake(margin, 0, ViewWidth - margin, ViewHeight);
+    self.oneLabel.tag = HiddenTag;
     self.twoLabel.frame = CGRectMake(margin, ViewHeight, ViewWidth - margin, ViewHeight);
 }
 
@@ -239,3 +242,4 @@
 
 
 @end
+
